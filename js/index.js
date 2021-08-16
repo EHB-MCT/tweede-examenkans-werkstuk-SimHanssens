@@ -1,11 +1,12 @@
 "use strict";
-
+let checker = false;
 const niewsArtikels = {
     initfields() {
-        document.getElementById("form").addEventListener("button",  e=> {
+        document.getElementById("likes").addEventListener("click",  e=> {
             e.preventDefault();
-            this.sortApi(artikels);
             checker = true;
+            let inputValue = "";
+            this.dataApi(inputValue);
         })
         document.getElementById("form").addEventListener("submit", e=> {
             e.preventDefault();
@@ -15,7 +16,7 @@ const niewsArtikels = {
     },
     dataApi(inputValue){
         let url = "https://thecrew.cc/news/read.php";
-        console.log(fetch(url));
+        //console.log(fetch(url));
         console.log("start loading sequence");
         document.getElementById("content").innerHTML = "loading";
         fetch(url) // ik krijg heel vreemde data binnen via deze fetch en vind geen oplossing. 
@@ -24,14 +25,19 @@ const niewsArtikels = {
             return response.json();
         })
         .then(data => {
-            //console.log(response);
            const artikels = data.docs;
            if(data.numFound == 0){
             console.log(data);
             this.errorHandler("geen data");
             
            }else{
-               this.filterApi(artikels);
+               if(checker){
+                this.sortApi(artikels);
+                checker = false;
+               }else{
+                this.filterApi(artikels);  
+            }
+               
            }
            console.log("end loading")
         })
@@ -53,9 +59,11 @@ const niewsArtikels = {
         })
         this.renderArticles(filterOnWord);
     },
-    /*sortApi(artikels){
-        const sortOnLikes = 
-    },*/
+    sortApi(artikels){
+        const sortOnLikes = artikels.sortApi((a,b) =>{
+            return a.likes - b.likes;
+        })
+    },
     renderArticles(artikels){
     document.getElementById("content").innerHTML = ""
     artikels.forEach(artikel => {// ik zie via "https://thecrew.cc/news/read.php" dat er html code in de json staat. maar met de fetch dat foutloopt kan ik deze niet toepassen op mijn code.
