@@ -1,5 +1,6 @@
 "use strict";
 let checker = false;
+
 const niewsArtikels = {
     initfields() {
         document.getElementById("likes").addEventListener("click",  e=> {
@@ -63,10 +64,13 @@ const niewsArtikels = {
         const sortOnLikes = artikels.sortApi((a,b) =>{
             return a.likes - b.likes;
         })
+        this.renderArticles(sortOnLikes);
     },
     renderArticles(artikels){
     document.getElementById("content").innerHTML = ""
     artikels.forEach(artikel => {// ik zie via "https://thecrew.cc/news/read.php" dat er html code in de json staat. maar met de fetch dat foutloopt kan ik deze niet toepassen op mijn code.
+        
+        let nieuwsArtikel = new Artikel(artikel.UUID, artikel.title, artikel.content, artikel.imageURI, artikel.likes, artikel.publicationDate);
         let html = `<article>
         <div class="image_wrapper">
         <img src="${artikel.imageURI}" alt=""> 
