@@ -68,19 +68,19 @@ const niewsArtikels = {
     },
     renderArticles(artikels){
     document.getElementById("content").innerHTML = ""
-    artikels.forEach(artikel => {// ik zie via "https://thecrew.cc/news/read.php" dat er html code in de json staat. maar met de fetch dat foutloopt kan ik deze niet toepassen op mijn code.
-        
+    artikels.forEach(artikel => {// Ik zie via "https://thecrew.cc/news/read.php" dat er html code in de json staat. maar met de fetch dat foutloopt kan ik deze niet toepassen op mijn code. 
+                                 // Daarmee dat ik zelf nu html hier heb aangemaakt. Als de fetch werkt zou ik naargelang de json het hier beneden aanpassen.
         let nieuwsArtikel = new Artikel(artikel.UUID, artikel.title, artikel.content, artikel.imageURI, artikel.likes, artikel.publicationDate);
         let html = `<article>
         <div class="image_wrapper">
-        <img src="${artikel.imageURI}" alt=""> 
+        <img src="${nieuwsArtikel.imageURL/*artikel.imageURI*/}" alt=""> 
         </div>
         <div class="article_content_wrapper">
         <div>
-            <h3>${artikel.title}</h3><!-- titel van het artikel-->
-            <h4>${artikel.content}</h4><!-- content van het artikel-->
+            <h3>${nieuwsArtikel.title/*artikel.title*/ }</h3><!-- titel van het artikel-->
+            <h4>${nieuwsArtikel.content/*artikel.content*/}</h4><!-- content van het artikel-->
         </div>
-        <div>${artikel.likes}</div>
+        <div>${nieuwsArtikel.likes/*artikel.likes*/}</div>
         </div>
     </article>`;
     document.getElementById("content").insertAdjacentHTML("beforeend", html);

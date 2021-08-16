@@ -43,8 +43,8 @@ class Artikel {
     get datum (){
         return this.datum;
     }
-    like (){
-        
+    like (data){
+        return fetch("https://thecrew.cc/news/read.php",{method: "POST", body: JSON.stringify(data)});
     }
 
 }
