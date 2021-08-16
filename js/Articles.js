@@ -45,6 +45,7 @@ class Artikel {
     }
     like (data){
         return fetch("https://thecrew.cc/news/read.php",{method: "POST", body: JSON.stringify(data)});
+        //post("", {UUID: artikel.UUID});
     }
 
 }
